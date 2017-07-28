@@ -40,8 +40,7 @@
   <button ion-button round (click)="changePoint(50)" [disabled]="players[(room | async)?.playerReview]?.email !== user">50</button>
   <hr>
   <div *ngIf="players[(room | async)?.playerReview]?.email === user">
-    Dotychczas: <span *ngFor="let p of tmpPoint">{{p}}, </span>
-    <button ion-button round (click)="confirmPoint()">Potwierdzam</button>
+    Dotychczas: <span *ngFor="let p of tmpPoint">{{p}}, </span> <br>
   </div>
 
 
@@ -56,6 +55,11 @@
       <button *ngIf="isOwner" ion-button clear item-end small (click)="deletePlayer(player.email)">Usuń</button>
     </ion-item>
   </ion-list>
+
+    <ion-fab right bottom *ngIf="players[(room | async)?.playerReview]?.email === user">
+        <button ion-fab color="light"  (click)="confirmPoint()"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-fab>
+
 </ion-content>
 
 <ion-footer>

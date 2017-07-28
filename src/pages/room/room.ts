@@ -28,19 +28,27 @@ export class RoomPage {
   constructor(private afDB: AngularFireDatabase,
               private afAuth: AngularFireAuth,
               public navCtrl: NavController,
-              public navParams: NavParams,) {
+              public navParams: NavParams) {
     this.user = this.afAuth.auth.currentUser.email;
     this.reqParam = this.navParams.get('room');
     this.rooms = this.afDB.list('/rooms');
-    if (this.reqParam === 'new') {
-      let newRoom = this.rooms.push({'owner': this.afAuth.auth.currentUser.email});
-      this.room = this.afDB.object('/rooms/' + newRoom.key);
-      this.playerInRooms('new');
-      this.isOwner = true;
-    } else {
-      this.room = this.afDB.object('/rooms/' + this.reqParam);
-      this.playerInRooms('exist');
 
+    if (this.reqParam === 'new') {
+        let newRoom = this.rooms.push(
+            {
+                'owner': this.afAuth.auth.currentUser.email,
+                'playerPointer': 0,
+                'playerReview': 1
+            }
+        );
+        this.room = this.afDB.object('/rooms/' + newRoom.key);
+        this.playerInRooms('new');
+        this.isOwner = true;
+
+    } else {
+
+        this.room = this.afDB.object('/rooms/' + this.reqParam);
+        this.playerInRooms('exist');
     }
   }
   checkOwner(room) {
@@ -55,6 +63,8 @@ export class RoomPage {
       this.room.subscribe(
         r => {
           this.players = r.players;
+          this.playerPointer = r.playerPointer;
+          this.playerReview = r.playerReview;
           let index = r.players.map(p => p.email).indexOf(this.user);
           if (index === -1) {
             r.players.push(this.buildObjPlayer(this.user));
@@ -91,6 +101,8 @@ export class RoomPage {
     )
     this.room.update(newVal);
     this.changePlayer();
+    this.tmpPoint = [];
+
   }
   deletePlayer(email) {
     var listOfPlayers;
@@ -104,7 +116,6 @@ export class RoomPage {
     )
 
     this.room.update(listOfPlayers);
-    this.tmpPoint = [];
   }
   newGame() {
     var changedRoom;
@@ -120,13 +131,22 @@ export class RoomPage {
     this.playerPointer = 0;
   }
   changePlayer() {
-    var currentPointer = this.playerPointer;
-    if (this.playerPointer < this.players.length -1 ) {
-      this.playerPointer++;
-    } else {
-      this.playerPointer = 0;
-    }
-    this.playerReview = currentPointer;
+      var currentPointer = this.playerPointer;
+      if    (this.playerPointer < this.players.length -1 ) {
+          this.playerPointer++;
+      } else {
+          this.playerPointer = 0;
+      }
+      this.playerReview = currentPointer;
+      var tmpRoom;
+      this.room.subscribe(
+          r => {
+              r.playerPointer = this.playerPointer;
+              r.playerReview = this.playerReview;
+              tmpRoom = r;
+          }
+      )
+      this.room.update(tmpRoom);
   }
 
 }

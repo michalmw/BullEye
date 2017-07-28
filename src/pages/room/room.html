@@ -19,30 +19,30 @@
     <button ion-fab color="vibrant" mini (click)="newGame()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
   Room is: {{room | async | json}}
-  <button ion-button round (click)="changePoint(1)" [disabled]="players[this.playerReview]?.email !== user">1</button>
-  <button ion-button round (click)="changePoint(2)" [disabled]="players[this.playerReview]?.email !== user">2</button>
-  <button ion-button round (click)="changePoint(3)" [disabled]="players[this.playerReview]?.email !== user">3</button>
-  <button ion-button round (click)="changePoint(4)" [disabled]="players[this.playerReview]?.email !== user">4</button>
-  <button ion-button round (click)="changePoint(5)" [disabled]="players[this.playerReview]?.email !== user">5</button>
-  <button ion-button round (click)="changePoint(6)" [disabled]="players[this.playerReview]?.email !== user">6</button>
-  <button ion-button round (click)="changePoint(7)" [disabled]="players[this.playerReview]?.email !== user">7</button>
-  <button ion-button round (click)="changePoint(8)" [disabled]="players[this.playerReview]?.email !== user">8</button>
-  <button ion-button round (click)="changePoint(9)" [disabled]="players[this.playerReview]?.email !== user">9</button>
-  <button ion-button round (click)="changePoint(10)" [disabled]="players[this.playerReview]?.email !== user">10</button>
-  <button ion-button round (click)="changePoint(11)" [disabled]="players[this.playerReview]?.email !== user">11</button>
-  <button ion-button round (click)="changePoint(12)" [disabled]="players[this.playerReview]?.email !== user">12</button>
-  <button ion-button round (click)="changePoint(13)" [disabled]="players[this.playerReview]?.email !== user">13</button>
-  <button ion-button round (click)="changePoint(14)" [disabled]="players[this.playerReview]?.email !== user">14</button>
-  <button ion-button round (click)="changePoint(15)" [disabled]="players[this.playerReview]?.email !== user">15</button>
-  <button ion-button round (click)="changePoint(16)" [disabled]="players[this.playerReview]?.email !== user">16</button>
-  <button ion-button round (click)="changePoint(17)" [disabled]="players[this.playerReview]?.email !== user">17</button>
-  <button ion-button round (click)="changePoint(18)" [disabled]="players[this.playerReview]?.email !== user">18</button>
-  <button ion-button round (click)="changePoint(19)" [disabled]="players[this.playerReview]?.email !== user">19</button>
-  <button ion-button round (click)="changePoint(20)" [disabled]="players[this.playerReview]?.email !== user">20</button>
-  <button ion-button round (click)="changePoint(25)" [disabled]="players[this.playerReview]?.email !== user">25</button>
-  <button ion-button round (click)="changePoint(50)" [disabled]="players[this.playerReview]?.email !== user">50</button>
+  <button ion-button round (click)="changePoint(1)" [disabled]="players[(room | async)?.playerReview]?.email !== user">1</button>
+  <button ion-button round (click)="changePoint(2)" [disabled]="players[(room | async)?.playerReview]?.email !== user">2</button>
+  <button ion-button round (click)="changePoint(3)" [disabled]="players[(room | async)?.playerReview]?.email !== user">3</button>
+  <button ion-button round (click)="changePoint(4)" [disabled]="players[(room | async)?.playerReview]?.email !== user">4</button>
+  <button ion-button round (click)="changePoint(5)" [disabled]="players[(room | async)?.playerReview]?.email !== user">5</button>
+  <button ion-button round (click)="changePoint(6)" [disabled]="players[(room | async)?.playerReview]?.email !== user">6</button>
+  <button ion-button round (click)="changePoint(7)" [disabled]="players[(room | async)?.playerReview]?.email !== user">7</button>
+  <button ion-button round (click)="changePoint(8)" [disabled]="players[(room | async)?.playerReview]?.email !== user">8</button>
+  <button ion-button round (click)="changePoint(9)" [disabled]="players[(room | async)?.playerReview]?.email !== user">9</button>
+  <button ion-button round (click)="changePoint(10)" [disabled]="players[(room | async)?.playerReview]?.email !== user">10</button>
+  <button ion-button round (click)="changePoint(11)" [disabled]="players[(room | async)?.playerReview]?.email !== user">11</button>
+  <button ion-button round (click)="changePoint(12)" [disabled]="players[(room | async)?.playerReview]?.email !== user">12</button>
+  <button ion-button round (click)="changePoint(13)" [disabled]="players[(room | async)?.playerReview]?.email !== user">13</button>
+  <button ion-button round (click)="changePoint(14)" [disabled]="players[(room | async)?.playerReview]?.email !== user">14</button>
+  <button ion-button round (click)="changePoint(15)" [disabled]="players[(room | async)?.playerReview]?.email !== user">15</button>
+  <button ion-button round (click)="changePoint(16)" [disabled]="players[(room | async)?.playerReview]?.email !== user">16</button>
+  <button ion-button round (click)="changePoint(17)" [disabled]="players[(room | async)?.playerReview]?.email !== user">17</button>
+  <button ion-button round (click)="changePoint(18)" [disabled]="players[(room | async)?.playerReview]?.email !== user">18</button>
+  <button ion-button round (click)="changePoint(19)" [disabled]="players[(room | async)?.playerReview]?.email !== user">19</button>
+  <button ion-button round (click)="changePoint(20)" [disabled]="players[(room | async)?.playerReview]?.email !== user">20</button>
+  <button ion-button round (click)="changePoint(25)" [disabled]="players[(room | async)?.playerReview]?.email !== user">25</button>
+  <button ion-button round (click)="changePoint(50)" [disabled]="players[(room | async)?.playerReview]?.email !== user">50</button>
   <hr>
-  <div *ngIf="players[this.playerReview]?.email === user">
+  <div *ngIf="players[(room | async)?.playerReview]?.email === user">
     Dotychczas: <span *ngFor="let p of tmpPoint">{{p}}, </span>
     <button ion-button round (click)="confirmPoint()">Potwierdzam</button>
   </div>
@@ -63,7 +63,7 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-title>Gra: {{players[this.playerPointer]?.email}}</ion-title>
+    <ion-title>Gra: {{players[(room | async)?.playerPointer]?.email}}</ion-title>
   </ion-toolbar>
 </ion-footer>
 

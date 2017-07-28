@@ -12,13 +12,10 @@
 
 </ion-header>
 
-
 <ion-content padding>
-  {{players | json}}
-  <ion-fab *ngIf="isOwner" top right edge>
-    <button ion-fab color="vibrant" mini (click)="newGame()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
-  Room is: {{room | async | json}}
+    <ion-fab *ngIf="isOwner" top right edge>
+        <button ion-fab color="vibrant" mini (click)="newGame()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
   <button ion-button round (click)="changePoint(1)" [disabled]="players[(room | async)?.playerReview]?.email !== user">1</button>
   <button ion-button round (click)="changePoint(2)" [disabled]="players[(room | async)?.playerReview]?.email !== user">2</button>
   <button ion-button round (click)="changePoint(3)" [disabled]="players[(room | async)?.playerReview]?.email !== user">3</button>

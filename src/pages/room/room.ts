@@ -36,6 +36,7 @@ export class RoomPage {
     if (this.reqParam === 'new') {
         let newRoom = this.rooms.push(
             {
+                'createdAt': new Date(),
                 'owner': this.afAuth.auth.currentUser.email,
                 'playerPointer': 0,
                 'playerReview': 1

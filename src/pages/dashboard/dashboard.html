@@ -14,8 +14,9 @@
 
 
 <ion-content padding>
-  <!--hello, {{user | json}}-->
-  <button block ion-button (click)="newRoom()">Dodaj Nowy</button>
+    <ion-fab top right edge>
+        <button ion-fab color="vibrant" mini (click)="newRoom()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
 
   <ion-card *ngFor="let room of (rooms | async)">
     <ion-card-header>
